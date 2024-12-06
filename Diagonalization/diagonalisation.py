@@ -9,7 +9,7 @@ from sort import triFusion
 #                 https://en.wikipedia.org/wiki/Lanczos_algorithm         #
 ###########################################################################
 
-def davidson(M, m=1, l=1, seuil=1e-8, MIt=600) -> tuple:
+def davidson(M, m=3, l=1, seuil=1e-8, MIt=600) -> tuple:
     """
     M : la matrice à diagonaliser
     m : la précision de l'agorithme Km = {V0;MV0;M²V0;...}
@@ -87,15 +87,3 @@ def davidson(M, m=1, l=1, seuil=1e-8, MIt=600) -> tuple:
                 ).reshape(N, 2*l))
             #print(f"V : {v[k]}\nT : {T}")
     return val, x
-
-n = 1600
-print('Dimension of the matrix',n,'*',n)
-sparsity = 0.001
-A = np.zeros((n,n))
-for i in range(0,n) : 
-    A[i,i] = i-9
-A = A + sparsity*np.random.randn(n,n)
-A = (A.T + A)/2
-
-print(davidson(A))
-print(np.linalg.eig(A))
