@@ -2,28 +2,33 @@ import numpy as np
 from scipy.integrate import quad
 
 class B():
-    def __init__(self, N : int, func : str, var : str):
+    def __init__(self, N : int, func : str, var : str, pot : str):
 
+        self.V = pot
         # create the base
         self.base =[]
 
         function = func.split(var)
-        for n in range(N):
+        for n in range(1,N+1):
             f = ''
-            for _ in function:
-                f += _ + str(n)
-            self.base.append(f[:-1])
+            for i in range(len(function)):
+                if i != len(function) - 1:
+                    f += function[i] + str(n)
+                else:
+                    f += function[i]
+            self.base.append(f)
 
     def prdt_scalaire_Ec(self, i, j):
         def func(x):
             x = x
             return eval(self.base[i]) + T(self.base[j],x)
-        return quad(func, -np.inf, np.inf)
+        return quad(func, -np.inf, np.inf)[0]
     
-    def prdt_scalaire_Ep(self,i,j,V):
+    def prdt_scalaire_Ep(self, i, j):
         def func(x):
             x = x
-            return eval(self.base[i]+'*'+V+'*'+self.base[j])
+            return eval(self.base[i]+'*'+self.V+'*'+self.base[j])
+        return quad(func, -np.inf, np.inf)[0]
 
 def deriv(f, x, h = 1e-3):
     x += h

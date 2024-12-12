@@ -1,4 +1,4 @@
-### Ce code permet de créer les bases pour calculer l'hamiltonien
+### Ce code permet de creer les bases pour calculer l'hamiltonien
 from math import pi, sqrt, sin, factorial
 
 class B_sin():
@@ -9,6 +9,8 @@ class B_sin():
         self.N = N
         self.L = L
         self.V = V
+        x = sqrt(2)
+        self.k = eval(self.V)
     
     def ret_base(self):
         """ Methode qui calcule la liste des sinus qui formera la base """
@@ -24,46 +26,50 @@ class B_sin():
             return 0
     
     def prdt_scalaire_Ep(self, i, j):
-        """ Methode qui donne le produit scalaire des sinus (calcul a la 
-        main) pour un potentiel harmonique"""
+        """ Method that gives the dot product of sines (hand calculation) 
+        for a harmonic potential"""
         if i == j :
-            return (self.V(sqrt(2)) * (self.L)**2) / 3
+            return (self.k * (self.L)**2) / 3
         else :
-            return ((2 * self.V(sqrt(2)) * (self.L)**2) / pi**2) * ( (((-1)**(i+j))/(i+j)**2) - (((-1)**(i-j))/(i-j)**2) )
+            return ((2 * self.k * (self.L)**2) / pi**2) * ( (((-1)**(i+j))/(i+j)**2) - (((-1)**(i-j))/(i-j)**2) )
 
 
 
 
+##### /!\ EN TRAVAUX /!\ #####
 
-def P_Hermite(n,x):
-    S = 0
-    for k in range(n//2 + 1):
-        S += (-1)**k * (factorial(n)/(2**k * factorial(k) * factorial(n-2*k))) * x**(n-2*k)
-    return S
+## Permet de calculer le polynôme d'Hermite grâce à une somme (source : wikipédia de "Polunôme d'Hermite")
+# def P_Hermite(n,x):
+#     S = 0
+#     for k in range(n//2 + 1):
+#         S += (-1)**k * (factorial(n)/(2**k * factorial(k) * factorial(n-2*k))) * x**(n-2*k)
+#     return S
 
-
-class B_OH():
-    """ Cette classe permet de calculer la base des sinus pour le calcul
-    de l'hamiltonien """
-    def __init__(self, N, m, omega, h_bar):
-        """ Methode qui initialise la classe de l'objet B_sin() """
-        self.N = N
-        self.m = m
-        self.omega = omega
-        self.h_bar = h_bar
+## Construction de la classe de la base de l'oscillateur harmonique
+# # class B_OH():
+#     """ Cette classe permet de calculer la base des sinus pour le calcul
+#     de l'hamiltonien """
+#     def __init__(self, N, m, omega, h_bar):
+#         """ Methode qui initialise la classe de l'objet B_sin() """
+#         self.N = N
+#         self.m = m
+#         self.omega = omega
+#         self.h_bar = h_bar
     
-    def ret_base(self):
-        """ Methode qui calcule la liste des Phin(x) qui formera la base """
-        return [f'(1/sqrt((2**{n})*factorial({n}))) * (({self.m}*{self.omega})/
-                (pi*{self.h_bar}))**(1/4) * P_Hermite({n}, sqrt({self.m}*{self.omega}/
-                {self.h_bar})*x) * exp((-{self.m}*{self.omega}*(x**2))/(2*{self.h_bar}))' 
-                for n in range(self.N)]
+#     def ret_base(self):
+#         """ Methode qui calcule la liste des Phin(x) qui formera la base """
+#         return [f'(1/sqrt((2**{n})*factorial({n}))) * (({self.m}*{self.omega})/
+#                 (pi*{self.h_bar}))**(1/4) * P_Hermite({n}, sqrt({self.m}*{self.omega}/
+#                 {self.h_bar})*x) * exp((-{self.m}*{self.omega}*(x**2))/(2*{self.h_bar}))' 
+#                 for n in range(self.N)]
+
+## Ci-dessus 'ret_base' permet de calculer la base grâce à la formule trouvé sur :
+## wikipédia de "Oscillateur harmonique quantique" dans la partie "États propres de l'opérateur N"
 
 
 
 
-
-
-# oscillateur harmonique
-# polynôme de legendre (rotateur rigide)
+### Des idées pour la suite ....
+# oscillateur harmonique (en partie fait mais probablement à revoir)
+# polynome de Legendre (rotateur rigide)
 

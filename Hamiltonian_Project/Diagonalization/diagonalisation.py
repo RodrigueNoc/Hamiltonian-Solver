@@ -1,7 +1,7 @@
 import numpy as np
 
-import GramSchmidt as GS
-from sort import triFusion
+import Diagonalization.GramSchmidt as GS
+from Diagonalization.sort import triFusion
 
 
 ###########################################################################
