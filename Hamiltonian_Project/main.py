@@ -18,7 +18,7 @@ H = np.zeros((N,N))
 
 for i in range(N):
     for j in range(i + 1):
-        H[i,j] = base.prdt_scalaire_Ec(i, j) +  base.prdt_scalaire_Ep(i, j)
+        H[i,j] = base.prdt_scalaire_Ec(i, j) +  base.prdt_scalaire_Ep(i, j, V)
 
 H = H + H.T - np.diag(np.diag(H))
 
